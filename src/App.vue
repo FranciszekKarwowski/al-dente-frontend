@@ -4,14 +4,12 @@ import { RouterLink, RouterView } from "vue-router";
 
 <template>
     <header>
-        <div class="wrapper">
-            <nav>
-                <RouterLink to="/kalendarz">Kalendarz</RouterLink>
-                <RouterLink to="/pacjenci">Pacjenci</RouterLink>
-                <RouterLink to="/profil">Profil</RouterLink>
-				<RouterLink to="/wizyty">Wizyty</RouterLink>
-            </nav>
-        </div>
+        <nav>
+            <RouterLink to="/kalendarz">Kalendarz</RouterLink>
+            <RouterLink to="/pacjenci">Pacjenci</RouterLink>
+            <RouterLink to="/profil">Profil</RouterLink>
+            <RouterLink to="/wizyty">Wizyty</RouterLink>
+        </nav>
     </header>
 
     <RouterView />
@@ -25,7 +23,7 @@ header {
 
 nav {
     /* width: 100%; */
-	font-size: 12px;
+    font-size: 12px;
     text-align: center;
     margin-top: 2rem;
 }
