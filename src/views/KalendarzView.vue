@@ -3,6 +3,6 @@
 
 <template>
     <main>
-        kalendarz wizyt
+        kalendarz
     </main>
 </template>
