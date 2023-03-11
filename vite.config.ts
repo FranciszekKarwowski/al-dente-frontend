@@ -11,5 +11,15 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  server: {
+    proxy: {
+      '/auth': {
+        target: 'https://login.salesforce.com/services/oauth2/token',
+        changeOrigin: true,
+        secure: true,
+        rewrite: (path) => path.replace(/^\/auth/, ''),
+      }
+    }
   }
 })

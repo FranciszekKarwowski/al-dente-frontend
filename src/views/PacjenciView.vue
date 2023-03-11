@@ -1,4 +1,5 @@
 <script setup lang="ts">
+    import { loginToSalesforce } from '@/services/auth';
     let id = 0;
     const patients = [
         { id:id++, name: 'Areczek', surname: 'Mareczek' },
@@ -6,6 +7,7 @@
         { id:id++, name: 'Tomasz', surname: 'Sztajka' },
         { id:id++, name: 'Jancja', surname: 'Gontar' },
     ];
+    loginToSalesforce();
 
 </script>
 
