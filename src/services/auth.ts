@@ -10,13 +10,18 @@ const credentials = 'grant_type=' + grant_type +
 '&username=' + sfdc_user + 
 '&password=' + sfdc_pass
 
-export function loginToSalesforce() {
+export const salesforceUrl = 'https://creative-wolf-se3i8r-dev-ed.trailblaze.my.salesforce.com'
+
+export function getAccessToken() {
     const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: credentials
     };
+    let accessToken;
     fetch("http://localhost:5173/auth", requestOptions)
         .then(response => response.json())
-        .then(data => console.log(data));
+        .then(data => accessToken = data['access_token']);
+
+    return accessToken;
 }
