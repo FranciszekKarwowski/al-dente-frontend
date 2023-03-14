@@ -22,7 +22,6 @@ interface Visit {
 const nameFilter = ref("")
 const dateFilter = ref("")
 
-const uniqueDays = new Set()
 const fetchedVisits: Ref<Array<Visit>> = ref([])
 const filteredVisits = computed(() => {
     return [...new Set(fetchedVisits.value.map((v) => stringToYYDDMM(v.startTime)))].map((d) => fetchedVisits.value.filter((v) => d === stringToYYDDMM(v.startTime)))
