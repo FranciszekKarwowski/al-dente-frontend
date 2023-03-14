@@ -6,10 +6,10 @@ import { RouterLink, RouterView } from "vue-router";
 <template>
     <header>
         <nav>
-            <RouterLink to="/kalendarz">Kalendarz</RouterLink>
-            <RouterLink to="/pacjenci">Pacjenci</RouterLink>
+            <RouterLink to="/kalendarz">Calendar</RouterLink>
+            <RouterLink to="/pacjenci">Patients</RouterLink>
             <RouterLink to="/profil">Profil</RouterLink>
-            <RouterLink to="/wizyty">Wizyty</RouterLink>
+            <RouterLink to="/wizyty">Visits</RouterLink>
         </nav>
     </header>
     <Suspense>
