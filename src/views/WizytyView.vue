@@ -19,6 +19,18 @@ interface Visit {
     endTime: string,
 }
 
+interface Visitt {
+    id: string,
+    status: string,
+    name: string,
+    surname: string,
+    startTime: string,
+    endtime: string,
+    pesel: string,
+    phoneNo: string,
+    patientId: string,
+}
+
 const nameFilter = ref("")
 const dateFilter = ref("")
 
@@ -52,18 +64,21 @@ fetchData()
 </script>
 
 <template>
-    <VueDatePicker v-model="dateFilter" range />
-    <input v-model="nameFilter" placeholder="Pacjent">
+    <div class="div">
+        <VueDatePicker class="VueDatePicker" v-model="dateFilter" range />
+        <input v-model="nameFilter" placeholder="Patient">
+        <button>Search</button>
+    </div>
     <ul>
         <li v-for="visits in filteredVisits">
             {{ stringToYYDDMM(visits[0].startTime) }}
             <table>
                 <tr>
-                    <th>Godz</th>
-                    <th>Imię</th>
-                    <th>Nazwisko</th>
+                    <th>Time</th>
+                    <th>First name</th>
+                    <th>Last name</th>
                     <th>Pesel</th>
-                    <th>Telefon</th>
+                    <th>Phone number</th>
                     <th>Status</th>
                 </tr>
                 <tr v-for="visit in visits" :key="visit.id">
@@ -77,4 +92,17 @@ fetchData()
             </table>
         </li>
     </ul>
+    {{ nameFilter }}
+    {{ dateFilter }}
 </template>
+
+<style scoped>
+.div {
+    display: flex;
+    gap: 50px;
+}
+
+.VueDatePicker {
+    width: 400px;
+}
+</style>
