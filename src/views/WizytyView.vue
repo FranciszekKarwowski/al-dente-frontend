@@ -48,6 +48,11 @@ async function fetchData() {
             "Content-Type": "application/json",
             "Authorization": "Bearer " + accessToken
         },
+        body: JSON.stringify({
+            name: nameFilter.value,
+            startDate: dateFilter.value[0],
+            endDate: dateFilter.value[1],
+        })
     })
     fetchedVisits.value = await res.json()
 }
@@ -60,6 +65,11 @@ function stringToYYDDMM(date: string) {
     return new Date(Date.parse(date)).toISOString().substring(2, 10)
 }
 
+function clearFilters() {
+    nameFilter.value = "";
+    dateFilter.value = "";
+}
+
 fetchData()
 </script>
 
@@ -67,7 +77,8 @@ fetchData()
     <div class="div">
         <VueDatePicker class="VueDatePicker" v-model="dateFilter" range />
         <input v-model="nameFilter" placeholder="Patient">
-        <button>Search</button>
+        <button @click="fetchData">Search</button>
+        <button @click="clearFilters">Clear</button>
     </div>
     <ul>
         <li v-for="visits in filteredVisits">
