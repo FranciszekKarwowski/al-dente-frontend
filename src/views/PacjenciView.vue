@@ -32,7 +32,9 @@
     async function filterChange() {
         fetchedPatients.value = []
         const accessToken = await getAccessToken()
-        const res = await fetch('http://localhost:5173/Patient?' + 'searchValue=' + searchPatient.value, {
+
+        const fetchURL = searchPatient.value === '' ? '' : '?searchValue=' + searchPatient.value;
+        const res = await fetch('http://localhost:5173/Patient' + fetchURL, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
