@@ -42,17 +42,12 @@ const filteredVisits = computed(() => {
 async function fetchData() {
     fetchedVisits.value = []
     const accessToken = await getAccessToken()
-    const res = await fetch('http://localhost:5174/Visit', {
+    const res = await fetch('http://localhost:5173/Visit', {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
             "Authorization": "Bearer " + accessToken
-        },
-        body: JSON.stringify({
-            name: nameFilter.value,
-            startDate: dateFilter.value[0],
-            endDate: dateFilter.value[1],
-        })
+        }
     })
     fetchedVisits.value = await res.json()
 }
@@ -75,7 +70,7 @@ fetchData()
 
 <template>
     <div class="div">
-        <VueDatePicker class="VueDatePicker" v-model="dateFilter" range />
+        <VueDatePicker class="VueDatePicker" v-model="dateFilter" range dark="true" placeholder="Select Date"/>
         <input v-model="nameFilter" placeholder="Patient">
         <button @click="fetchData">Search</button>
         <button @click="clearFilters">Clear</button>
