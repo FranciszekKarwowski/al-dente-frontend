@@ -16,7 +16,7 @@ export async function getAccessToken() {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: credentials
     };
-    const response = await fetch("http://localhost:5174/auth", requestOptions);
+    const response = await fetch("http://localhost:5173/auth", requestOptions);
     const body = await response.json()
     return body['access_token']
 }
