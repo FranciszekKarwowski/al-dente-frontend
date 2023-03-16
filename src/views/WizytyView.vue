@@ -1,8 +1,119 @@
 <script setup lang="ts">
+import { getAccessToken } from '@/services/auth'
+import { ref, computed } from 'vue'
+import type { Ref } from 'vue'
+
+interface Patient {
+    id: string,
+    firstName: string,
+    lastName: string,
+    phoneNumber: string,
+    pesel: string,
+}
+
+interface Visit {
+    id: string,
+    status: string,
+    patient: Patient,
+    startTime: string,
+    endTime: string,
+}
+
+interface Visitt {
+    id: string,
+    status: string,
+    name: string,
+    surname: string,
+    startTime: string,
+    endtime: string,
+    pesel: string,
+    phoneNo: string,
+    patientId: string,
+}
+
+const nameFilter = ref("")
+const dateFilter = ref("")
+
+const fetchedVisits: Ref<Array<Visit>> = ref([])
+const filteredVisits = computed(() => {
+    return [...new Set(fetchedVisits.value.map((v) => stringToYYDDMM(v.startTime)))].map((d) => fetchedVisits.value.filter((v) => d === stringToYYDDMM(v.startTime)))
+})
+
+async function fetchData() {
+    fetchedVisits.value = []
+    const accessToken = await getAccessToken()
+    const res = await fetch('http://localhost:5174/Visit', {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + accessToken
+        },
+        body: JSON.stringify({
+            name: nameFilter.value,
+            startDate: dateFilter.value[0],
+            endDate: dateFilter.value[1],
+        })
+    })
+    fetchedVisits.value = await res.json()
+}
+
+function stringToHHmm(date: string) {
+    return new Date(Date.parse(date)).toISOString().substring(11, 16)
+}
+
+function stringToYYDDMM(date: string) {
+    return new Date(Date.parse(date)).toISOString().substring(2, 10)
+}
+
+function clearFilters() {
+    nameFilter.value = "";
+    dateFilter.value = "";
+}
+
+fetchData()
 </script>
 
 <template>
-    <main>
-        "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
-    </main>
+    <div class="div">
+        <VueDatePicker class="VueDatePicker" v-model="dateFilter" range />
+        <input v-model="nameFilter" placeholder="Patient">
+        <button @click="fetchData">Search</button>
+        <button @click="clearFilters">Clear</button>
+    </div>
+    <ul>
+        <li v-for="visits in filteredVisits">
+            {{ stringToYYDDMM(visits[0].startTime) }}
+            <table>
+                <tr>
+                    <th>Time</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Pesel</th>
+                    <th>Phone number</th>
+                    <th>Status</th>
+                </tr>
+                <tr v-for="visit in visits" :key="visit.id">
+                    <td>{{ stringToHHmm(visit.startTime) + '-' + stringToHHmm(visit.endTime) }}</td>
+                    <td>{{ visit.patient.firstName }}</td>
+                    <td>{{ visit.patient.lastName }}</td>
+                    <td>{{ visit.patient.pesel }}</td>
+                    <td>{{ visit.patient.phoneNumber }}</td>
+                    <td>{{ visit.status }}</td>
+                </tr>
+            </table>
+        </li>
+    </ul>
+    {{ nameFilter }}
+    {{ dateFilter }}
 </template>
+
+<style scoped>
+.div {
+    display: flex;
+    gap: 50px;
+}
+
+.VueDatePicker {
+    width: 400px;
+}
+</style>
