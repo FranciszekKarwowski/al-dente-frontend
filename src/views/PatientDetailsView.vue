@@ -12,7 +12,7 @@ interface Visit {
 }
 
 interface Patient {
-    visits: [Visit],
+    visits: Visit[],
     phoneNumber: string,
     pesel: string,
     firstName: string,
@@ -22,7 +22,7 @@ interface Patient {
     birthdate: string;
 }
 
-const fetchedPatient = ref({ visits: [], phoneNumber: "", pesel: "", firstName: "", lastName: "", id: "", gender: "", birthdate: "" })
+const fetchedPatient: Ref<Patient> = ref({ visits: [], phoneNumber: "", pesel: "", firstName: "", lastName: "", id: "", gender: "", birthdate: "" })
 const route = useRoute()
 
 async function fetchData() {
