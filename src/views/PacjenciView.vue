@@ -48,16 +48,14 @@ fetchData();
 </script>
 <template>
     <main>
-        <div class="search">
-            Search for patient:
-            <input v-model="searchPatient" type="text" style="margin-left: 10px; border: solid var(--color-border)"
-                @change="filterChange()" placeholder="search" />
-            &nbsp
+        <div class="topbar">
+            <div class="searchtext">
+                Search for patient:
+            </div>
+            <input v-model="searchPatient" class="searchbox" type="text" @change="filterChange()" placeholder="search"/>
+            <button class="new-patient-button" type="button">New patient</button>
         </div>
-        <div class="newPatient">
-            <button type="button" style="border-color: transparent;">New patient</button>
-        </div>
-        <div class="patientTable">
+        <div class="bottombar">
             <table id="table">
                 <tr>
                     <th>First Name</th>
@@ -87,17 +85,4 @@ fetchData();
 </template>
 
 <style scoped>
-.search {
-    float: left;
-}
-
-.newPatient {
-    padding-left: 10px;
-    float: left;
-}
-
-.patientTable {
-    padding-top: 15px;
-    clear: both;
-}
 </style>
