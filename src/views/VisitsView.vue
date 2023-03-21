@@ -42,7 +42,7 @@ fetchData()
 
 <template>
     <div class="div">
-        <VueDatePicker class="VueDatePicker" v-model="dateFilter" range dark=true placeholder="Select Date" />
+        <VueDatePicker class="VueDatePicker" v-model="dateFilter" range dark placeholder="Select Date" />
         <input v-model="nameFilter" placeholder="Patient">
         <button @click="fetchData">Search</button>
         <button @click="clearFilters">Clear</button>
