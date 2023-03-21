@@ -3,44 +3,24 @@ import { getAccessToken } from '@/services/auth'
 import { ref, computed } from 'vue'
 import type { Ref } from 'vue'
 
-interface Patient {
-    id: string,
+interface Visit {
+    visitId: string,
+    status: string,
     firstName: string,
     lastName: string,
-    phoneNumber: string,
-    pesel: string,
-}
-
-interface Visit {
-    id: string,
-    status: string,
-    patient: Patient,
     startTime: string,
     endTime: string,
-}
-
-interface Visitt {
-    id: string,
-    status: string,
-    name: string,
-    surname: string,
-    startTime: string,
-    endtime: string,
     pesel: string,
-    phoneNo: string,
+    phoneNumber: string,
     patientId: string,
 }
 
 const nameFilter = ref("")
 const dateFilter = ref("")
 
-const fetchedVisits: Ref<Array<Visit>> = ref([])
-const filteredVisits = computed(() => {
-    return [...new Set(fetchedVisits.value.map((v) => stringToYYDDMM(v.startTime)))].map((d) => fetchedVisits.value.filter((v) => d === stringToYYDDMM(v.startTime)))
-})
+const fetchedVisits: Ref<Array<{ day: string, visits: [Visit] }>> = ref([])
 
 async function fetchData() {
-    fetchedVisits.value = []
     const accessToken = await getAccessToken()
     const res = await fetch('http://localhost:5173/Visit', {
         method: "GET",
@@ -50,14 +30,6 @@ async function fetchData() {
         }
     })
     fetchedVisits.value = await res.json()
-}
-
-function stringToHHmm(date: string) {
-    return new Date(Date.parse(date)).toISOString().substring(11, 16)
-}
-
-function stringToYYDDMM(date: string) {
-    return new Date(Date.parse(date)).toISOString().substring(2, 10)
 }
 
 function clearFilters() {
@@ -70,14 +42,14 @@ fetchData()
 
 <template>
     <div class="div">
-        <VueDatePicker class="VueDatePicker" v-model="dateFilter" range dark="true" placeholder="Select Date"/>
+        <VueDatePicker class="VueDatePicker" v-model="dateFilter" range dark placeholder="Select Date" />
         <input v-model="nameFilter" placeholder="Patient">
         <button @click="fetchData">Search</button>
         <button @click="clearFilters">Clear</button>
     </div>
     <ul>
-        <li v-for="visits in filteredVisits">
-            {{ stringToYYDDMM(visits[0].startTime) }}
+        <li v-for="dateVisits in fetchedVisits">
+            {{ dateVisits.day }}
             <table>
                 <tr>
                     <th>Time</th>
@@ -87,19 +59,17 @@ fetchData()
                     <th>Phone number</th>
                     <th>Status</th>
                 </tr>
-                <tr v-for="visit in visits" :key="visit.id">
-                    <td>{{ stringToHHmm(visit.startTime) + '-' + stringToHHmm(visit.endTime) }}</td>
-                    <td>{{ visit.patient.firstName }}</td>
-                    <td>{{ visit.patient.lastName }}</td>
-                    <td>{{ visit.patient.pesel }}</td>
-                    <td>{{ visit.patient.phoneNumber }}</td>
+                <tr v-for="visit in dateVisits.visits" :key="visit.visitId">
+                    <td>{{ visit.startTime + '-' + visit.endTime }}</td>
+                    <td>{{ visit.firstName }}</td>
+                    <td>{{ visit.lastName }}</td>
+                    <td>{{ visit.pesel }}</td>
+                    <td>{{ visit.phoneNumber }}</td>
                     <td>{{ visit.status }}</td>
                 </tr>
             </table>
         </li>
     </ul>
-    {{ nameFilter }}
-    {{ dateFilter }}
 </template>
 
 <style scoped>
