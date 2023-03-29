@@ -73,12 +73,7 @@ fetchData()
 </template>
 
 <style scoped>
-.div {
-    display: flex;
-    gap: 50px;
-}
-
-.VueDatePicker {
-    width: 400px;
-}
+    .VueDatePicker {
+        width: 400px;
+    }
 </style>

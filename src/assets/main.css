@@ -23,9 +23,9 @@ a,
 
 table, th, td {
 	padding: 0 1rem;
-        border: 1px solid var(--color-border);
-        border-radius: 10px;
-        border-collapse: collapse;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    border-collapse: collapse;
 }
 th {
     color: var(--color-lightgreen);
@@ -35,12 +35,13 @@ input, button {
     text-align: center;
     color: var(--color-text);
     background-color: var(--color-darkgreen);
+    border: 1px solid var(--color-border);
     border-radius: 10px;
 }
 
 input {
-    max-height: 30px;
-    border: solid var(--color-border);
+    width: 300px;
+    height: 26px;
 }
 
 button {
@@ -54,4 +55,20 @@ button:hover {
 }
 input::placeholder {
     color: var(--color-darkgreengray);
+}
+
+main {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 10px;
+}
+
+.topbar {
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+    gap: 10px;
 }
