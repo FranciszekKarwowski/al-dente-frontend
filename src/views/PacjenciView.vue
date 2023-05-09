@@ -49,13 +49,10 @@ fetchData();
 <template>
     <main>
         <div class="topbar">
-            <div class="searchtext">
-                Search for patient:
-            </div>
-            <input v-model="searchPatient" class="searchbox" type="text" @change="filterChange()" placeholder="search"/>
+            <input v-model="searchPatient" class="searchbox" type="text" @change="filterChange()" placeholder="Patient"/>
             <button class="new-patient-button" type="button">New patient</button>
         </div>
-        <div class="bottombar">
+        <div>
             <table id="table">
                 <tr>
                     <th>First Name</th>

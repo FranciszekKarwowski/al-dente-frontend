@@ -48,31 +48,31 @@ const gender = ref("")
 </script>
 
 <template>
-    <div class="columnContainer">
-        <div>Basic info
-            <div>PESEL *
+    <div class="content">
+        <div class="columnContainer">Basic info
+            <div class="basicInfoRow">PESEL *
                 <input v-model="pesel" :placeholder=fetchedPatient.pesel>
             </div>
-            <div>Name *
+            <div class="basicInfoRow">Name *
                 <input v-model="firstName" :placeholder=fetchedPatient.firstName>
             </div>
-            <div>Last Name *
+            <div class="basicInfoRow">Last Name *
                 <input v-model="lastName" :placeholder=fetchedPatient.lastName>
             </div>
-            <div>Birthdate *
+            <div class="basicInfoRow">Birthdate *
                 <input v-model="birthdate" :placeholder=fetchedPatient.birthdate>
             </div>
-            <div>Phone Number *
+            <div class="basicInfoRow">Phone Number *
                 <input v-model="phoneNumber" :placeholder=fetchedPatient.phoneNumber>
             </div>
-            <div>Gender *
-                <select :value=fetchedPatient.gender>
+            <div class="basicInfoRow">Gender *
+                <select class="select" :value=fetchedPatient.gender id="standard-select">
                     <option name="male">Male</option>
                     <option name="female">Female</option>
                 </select>
             </div>
         </div>
-        <div>History of visits
+        <div class="columnContainer">History of visits
             <table>
                 <tr>
                     <th>Time</th>
@@ -89,9 +89,22 @@ const gender = ref("")
 </template>
 
 <style scoped>
-.columnContainer {
+.content {
     display: flex;
     flex-direction: row;
+    gap: 20px;
+}
+.columnContainer {
+    display: flex;
+    flex-flow: column nowrap;
     gap: 10px;
 }
+
+.basicInfoRow {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+
 </style>

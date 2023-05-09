@@ -41,15 +41,17 @@ fetchData()
 </script>
 
 <template>
-    <div class="div">
+    <div class="topbar" style="padding-bottom: 0px;">
         <VueDatePicker class="VueDatePicker" v-model="dateFilter" range dark placeholder="Select Date" />
         <input v-model="nameFilter" placeholder="Patient">
         <button @click="fetchData">Search</button>
         <button @click="clearFilters">Clear</button>
     </div>
-    <ul>
-        <li v-for="dateVisits in fetchedVisits">
-            {{ dateVisits.day }}
+    <ul style="padding-left: 0;">
+        <li v-for="dateVisits in fetchedVisits" style="list-style-type: none;">
+            <div style="font-size: large; padding-top: 15px;">
+                {{ dateVisits.day }}
+            </div>
             <table>
                 <tr>
                     <th>Time</th>
