@@ -33,6 +33,12 @@ export default defineConfig({
         changeOrigin: true,
         secure: true,
         rewrite: (path) => path.replace(/^\/Visit/, ''),
+      },
+      '/Calendar': {
+        target: salesforceUrl + '/Calendar',
+        changeOrigin: true,
+        secure: true,
+        rewrite: (path) => path.replace(/^\/Calendar/, ''),
       }
     }
   }
