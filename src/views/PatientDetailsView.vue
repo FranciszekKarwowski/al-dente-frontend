@@ -73,7 +73,7 @@ const gender = ref("")
             </div>
         </div>
         <div class="columnContainer">History of visits
-            <table>
+            <table style="font-size: 15px;">
                 <tr>
                     <th>Time</th>
                     <th>Status</th>
@@ -84,7 +84,6 @@ const gender = ref("")
                 </tr>
             </table>
         </div>
-        <div></div>
     </div>
 </template>
 
@@ -98,12 +97,14 @@ const gender = ref("")
     display: flex;
     flex-flow: column nowrap;
     gap: 10px;
+    font-size: x-large;
 }
 
 .basicInfoRow {
     display: flex;
     justify-content: space-between;
     gap: 10px;
+    font-size: 15px;
 }
 
 

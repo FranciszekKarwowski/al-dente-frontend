@@ -21,6 +21,7 @@ import { RouterLink, RouterView } from "vue-router";
 header {
     display: flex;
     position: sticky;
+    z-index: 1;
     background-color: var(--color-background);
     top: 0;
 } 

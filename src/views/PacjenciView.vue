@@ -49,19 +49,21 @@ fetchData();
 <template>
     <main>
         <div class="topbar">
-            <input v-model="searchPatient" class="searchbox" type="text" @change="filterChange()" placeholder="Patient"/>
-            <button class="new-patient-button" type="button">New patient</button>
+            <button class="new-patient-button" type="button">New</button>
+            <input v-model="searchPatient" class="searchbox" type="text" placeholder="Search"/>
+            <button class="new-patient-button" type="button" @click="filterChange()">Search</button>
+            
         </div>
         <div>
-            <table id="table">
+            <table id="table" style="text-align: left;">
                 <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Gender</th>
-                    <th>PESEL</th>
-                    <th>Birth date</th>
-                    <th>Phone</th>
-                    <th>Actions</th>
+                    <th style="width: 150px;">First Name</th>
+                    <th style="width: 150px;">Last Name</th>
+                    <th style="width: 60px;">Gender</th>
+                    <th style="width: 100px;">PESEL</th>
+                    <th style="width: 90px;">Birth date</th>
+                    <th style="width: 85px;">Phone</th>
+                    <th style="width: 100px;">Actions</th>
                 </tr>
                 <tr v-for="patient in fetchedPatients">
                     <td><span>{{ patient.firstName }}</span></td>

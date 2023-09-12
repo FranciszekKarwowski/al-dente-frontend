@@ -54,12 +54,12 @@ fetchData()
             </div>
             <table>
                 <tr>
-                    <th>Time</th>
-                    <th>First name</th>
-                    <th>Last name</th>
-                    <th>Pesel</th>
-                    <th>Phone number</th>
-                    <th>Status</th>
+                    <th style="width: 90px;">Time</th>
+                    <th style="width: 150px;">First name</th>
+                    <th style="width: 150px;">Last name</th>
+                    <th style="width: 100px;">Pesel</th>
+                    <th style="width: 85px;">Phone</th>
+                    <th style="width: 80px;">Status</th>
                 </tr>
                 <tr v-for="visit in dateVisits.visits" :key="visit.visitId">
                     <td>{{ visit.startTime + '-' + visit.endTime }}</td>
